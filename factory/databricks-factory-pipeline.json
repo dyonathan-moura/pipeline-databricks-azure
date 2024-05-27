@@ -1,0 +1,9 @@
+{
+	"name": "databricks-factory-pipeline",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7561651f-7d3c-4f3c-bb10-f5480bfe9b41",
+		"tenantId": "8d5930ce-253b-44b4-92e6-8a4b953dda7f"
+	}
+}
