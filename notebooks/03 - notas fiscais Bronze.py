@@ -1,7 +1,7 @@
 # Databricks notebook source
 from pyspark.sql import SparkSession
 import pyspark.pandas as ps
-from pyspark.sql.functions import to_date,col, date_format
+from pyspark.sql.functions import to_date,col, date_format,when
 
 # COMMAND ----------
 
@@ -44,6 +44,12 @@ df = df.withColumnRenamed('Nota Fiscal', 'nota_fiscal')\
 df = df.withColumn('data_pagamento', to_date(col('data_pagamento'), 'yyyy-MM-dd'))
 # df = df.withColumn('data_pagamento', date_format(col('data_pagamento'), 'dd-MM-yyyy'))
 
+# Converter "SIM" para 1 e "NÃO" para 0
+df = df.withColumn("existe_rateio", when(col("existe_rateio") == "SIM", 1).otherwise(0))
+df = df.withColumn('anexo_boleto',when(col('anexo_boleto') =='SIM',1).otherwise(0))
+df = df.withColumn('patrimonio',when(col('patrimonio') == 'SIM',1).otherwise(0))
+
+
 
 # COMMAND ----------
 
@@ -56,5 +62,12 @@ df.printSchema()
 
 # COMMAND ----------
 
+df.select('patrimonio').show(10)
+
+# COMMAND ----------
+
 # Salvar o Dataframe no formato Delta
-df.write.format('delta').mode('overwrite').save('/mnt/dados/bronze/planilha_controle_notas')
+df.write.format('delta')\
+    .option('mergeSchema','true')\
+    .mode('overwrite')\
+    .save('/mnt/dados/bronze/planilha_controle_notas')

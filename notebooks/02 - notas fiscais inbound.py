@@ -1,4 +1,5 @@
 # Databricks notebook source
+! pip install faker 
 import numpy as np
 import pandas as pd
 from faker import Faker
@@ -7,7 +8,7 @@ from pyspark.sql import SparkSession
 # COMMAND ----------
 
 # Configurar o Faker e a Sessão Spark
-faker = Faker()
+faker = Faker('pt_BR')
 spark = SparkSession.builder.appName("Salvar DataFrame").getOrCreate()
 
 size = 10000  # Tamanho do DataFrame
@@ -25,6 +26,8 @@ contexto = ["SIM", "NÃO"]
 rateio = [faker.random.choice(contexto) for _ in range(size)]
 anexo_boleto = [faker.random.choice(contexto) for _ in range(size)]
 patrimonio = [faker.random.choice(contexto) for _ in range(size)]
+# Gerar 10.000 CNPJs falsos
+cnpjs = [faker.cnpj() for _ in range(size)]
 
 # Compilar todos os dados em um DataFrame pandas
 df = pd.DataFrame({
@@ -34,6 +37,7 @@ df = pd.DataFrame({
     'Descrição Fornecedor': descricao_fornecedores,
     'Código Fornecedor': cod_fornecedores,
     'Filial': filiais,
+    'CNPJ': cnpjs,
     'Data de Pagamento': datas_pagamento,
     'Forma de Pagamento': formas_pagamento,
     'Existe Rateio': rateio,
@@ -56,3 +60,7 @@ sdf = spark.createDataFrame(df)
 # COMMAND ----------
 
 dbutils.fs.ls('/mnt/dados/inbound/')
+
+# COMMAND ----------
+
+
