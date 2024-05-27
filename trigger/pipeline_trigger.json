@@ -1,5 +1,5 @@
 {
-	"name": "pepiline_trigger",
+	"name": "pipeline_trigger",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
