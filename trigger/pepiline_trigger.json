@@ -1,0 +1,25 @@
+{
+	"name": "pepiline_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "datalake-ingestion",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2024-05-27T03:45:00",
+				"endTime": "2024-05-27T03:45:00",
+				"timeZone": "E. South America Standard Time"
+			}
+		}
+	}
+}
