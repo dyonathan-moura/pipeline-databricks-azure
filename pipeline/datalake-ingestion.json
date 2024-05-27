@@ -13,7 +13,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/dy0010@hotmail.com/pipeline-databricks-azure/notebooks/02 - notas fiscais inbound"
+				},
+				"linkedServiceName": {
+					"referenceName": "databricks_datafactory_link",
+					"type": "LinkedServiceReference"
+				}
 			},
 			{
 				"name": "ingestao-camadas-silver",
@@ -33,7 +40,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/dy0010@hotmail.com/pipeline-databricks-azure/notebooks/04 - notas fiscais Silver"
+				},
+				"linkedServiceName": {
+					"referenceName": "databricks_datafactory_link",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
